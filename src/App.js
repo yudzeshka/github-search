@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-
+import axios from "axios";
+import React from "react";
+import "./App.css";
+import UserCard from "./components/UserCard";
 function App() {
+  const [users, setUsers] = React.useState([]);
+  React.useEffect(() => {
+    axios
+      .get("https://api.github.com/search/repositories?q=max")
+      .then(({ data }) => {
+        setUsers(data.items);
+      });
+  }, []);
+  console.log(users);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <input placeholder="search"></input>
+      <div className="usersCards">
+        {users &&
+          users.map((user) => (
+            <UserCard
+              avatar={user.owner.avatar_url}
+              userName={user.name}
+              id={user.id}
+            />
+          ))}
+      </div>
+    </>
   );
 }
 
