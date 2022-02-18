@@ -1,17 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function UserCard({ avatar, userName, language }) {
-  console.log(userName);
+export default function UserCard(user) {
+  console.log(user.userName);
   return (
     <div>
       <div>
-        <Link to={"/userpage"}>
-          <img src={avatar}></img>
-        </Link>
+        <img src={user.avatar}></img>
       </div>
-      <div>name: {userName}</div>
-      <div>language: {language}</div>
+      <Link
+        // onClick={() => console.log(user)}
+        to={"/userpage"}
+      >
+        <div>name: {user.userName}</div>
+      </Link>
+      <div>language: {user.language}</div>
     </div>
   );
 }

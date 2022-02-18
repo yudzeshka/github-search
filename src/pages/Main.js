@@ -65,6 +65,9 @@ export default function Main() {
             avatar={user.owner.avatar_url}
             userName={user.name}
             language={user.language}
+            following={user.owner.following_url}
+            followers={user.owner.followers_url}
+            repos={user.owner.repos_url}
           />
         ))}
       </div>
