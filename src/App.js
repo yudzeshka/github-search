@@ -7,7 +7,7 @@ import UserPage from "./pages/UserPage";
 
 function App() {
   return (
-    <div className="bg-slate-100 w-screen h-screen text-center text-slate-500">
+    <div className="bg-slate-100 w-screen min-h-screen max-h-max text-center text-slate-500 pt-5">
       <Routes>
         <Route path="/" exact element={<Main />} />
         <Route path="/:id" element={<ReposPage />} />

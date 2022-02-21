@@ -6,10 +6,13 @@ import Button from "../components/Button";
 
 export default function Main() {
   const [repos, setRepos] = React.useState([]);
+  const [totalCount, setTotalCount] = React.useState(null);
   const [searchValue, setSearchValue] = React.useState("");
   const [isSearching, setIsSearching] = React.useState(false);
   const [languageName, setLanguageName] = React.useState(null);
   const debouncedSearchValue = useDebounce(searchValue, 600);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const USER_PER_PAGE = 40;
 
   function filterBy(data, field, value) {
     return data.filter((item) => (value ? item[field] === value : item));
@@ -22,15 +25,16 @@ export default function Main() {
       setIsSearching(true);
       axios
         .get(
-          `https://api.github.com/search/repositories?q=${debouncedSearchValue}`
+          `https://api.github.com/search/repositories?q=${debouncedSearchValue}&per_page=${USER_PER_PAGE}&page=${currentPage}`
         )
         .then(({ data }) => {
           setIsSearching(false);
           setRepos(data.items);
+          setTotalCount(data.total_count);
         });
     }
     return setRepos([]);
-  }, [debouncedSearchValue]);
+  }, [debouncedSearchValue, currentPage]);
 
   return (
     <>
@@ -45,23 +49,27 @@ export default function Main() {
           searching....
         </div>
       )}
+      {totalCount && <p>Total repositories = {totalCount}</p>}
       <p className="text-center mb-2">Select language</p>
       <div className="flex justify-center mb-5">
         <Button
-          onFilter={() => setLanguageName(null)}
+          onClickBtn={() => setLanguageName(null)}
           buttonName={"Show All"}
         />
         <Button
-          onFilter={() => setLanguageName("JavaScript")}
+          onClickBtn={() => setLanguageName("JavaScript")}
           buttonName={"JavaScript"}
         />
-        <Button onFilter={() => setLanguageName("Java")} buttonName={"Java"} />
         <Button
-          onFilter={() => setLanguageName("Python")}
+          onClickBtn={() => setLanguageName("Java")}
+          buttonName={"Java"}
+        />
+        <Button
+          onClickBtn={() => setLanguageName("Python")}
           buttonName={"Python"}
         />
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 grid-flow-row gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 grid-flow-row gap-4 mb-5">
         {filterByLanguage.map((repos) => (
           <ReposCard
             key={repos.id}
@@ -72,6 +80,19 @@ export default function Main() {
           />
         ))}
       </div>
+      {currentPage > 1 && (
+        <Button
+          onClickBtn={() => setCurrentPage(currentPage - 1)}
+          buttonName={"Previous page"}
+        />
+      )}
+      {totalCount > USER_PER_PAGE &&
+        totalCount / USER_PER_PAGE >= currentPage && (
+          <Button
+            onClickBtn={() => setCurrentPage(currentPage + 1)}
+            buttonName={"Next page"}
+          />
+        )}
     </>
   );
 }

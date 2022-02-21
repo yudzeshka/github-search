@@ -5,7 +5,7 @@ export default function ReposCard({ reposName, language, reposOwner, id }) {
   console.log(reposName);
 
   return (
-    <div className="border rounded-md p-2 mx-4 truncate">
+    <div className="border rounded-md p-2 mx-4 text-ellipsis">
       <Link
         // onClick={() => console.log(user)}
         to={`/${id}`}
