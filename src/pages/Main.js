@@ -49,7 +49,11 @@ export default function Main() {
           searching....
         </div>
       )}
-      {totalCount && <p>Total repositories = {totalCount}</p>}
+      {totalCount > 0 ? (
+        <p>Total repositories = {totalCount}</p>
+      ) : (
+        <p>Repositories not found</p>
+      )}
 
       {repos.length > 0 && (
         <>
