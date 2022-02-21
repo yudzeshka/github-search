@@ -15,7 +15,7 @@ export default function UserPage() {
   return (
     <div className=" w-screen h-screen flex  justify-center items-center">
       {userData && (
-        <div className="border rounded-md flex flex-col items-start p-10">
+        <div className="border rounded-md truncate flex flex-col items-start p-10">
           <img src={userData.avatar_url} alt="user"></img>
           <div>{`Full name : ${userData.name}`}</div>
           <div>{`Created at : ${userData.created_at}`}</div>

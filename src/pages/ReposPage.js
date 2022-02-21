@@ -17,7 +17,7 @@ export default function ReposPage() {
     <div>
       {reposData && (
         <div className=" w-screen h-screen flex  justify-center items-center">
-          <div className="border rounded-md flex flex-col items-start p-10">
+          <div className="border truncate rounded-md flex flex-col items-start p-10">
             <div>{`Repository name : ${reposData.name}`}</div>
             <Link to={`/users/${reposData.owner.id}`}>
               <div className="hover:bg-violet-100">{`Owner login : ${reposData.owner.login}`}</div>
