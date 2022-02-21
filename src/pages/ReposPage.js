@@ -5,7 +5,6 @@ import axios from "axios";
 export default function ReposPage() {
   const [reposData, setReposData] = React.useState(null);
   const { id } = useParams();
-  console.log(id);
 
   React.useEffect(() => {
     axios.get(`https://api.github.com/repositories/${id}`).then(({ data }) => {

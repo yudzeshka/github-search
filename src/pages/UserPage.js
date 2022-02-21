@@ -5,11 +5,9 @@ import axios from "axios";
 export default function UserPage() {
   const [userData, setUserData] = React.useState(null);
   const { userId } = useParams();
-  console.log(userId);
 
   React.useEffect(() => {
     axios.get(`https://api.github.com/user/${userId}`).then(({ data }) => {
-      console.log(data);
       setUserData(data);
     });
   }, [userId]);
