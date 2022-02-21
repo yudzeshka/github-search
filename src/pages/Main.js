@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
-import UserCard from "../components/UserCard";
+import ReposCard from "../components/ReposCard";
 import useDebounce from "../services/use-debounce";
 
 export default function Main() {
-  const [users, setUsers] = React.useState([]);
+  const [repos, setRepos] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState("");
   const [isSearching, setIsSearching] = React.useState(false);
   const [languageName, setLanguageName] = React.useState(null);
@@ -13,7 +13,7 @@ export default function Main() {
   function filterBy(data, field, value) {
     return data.filter((item) => (value ? item[field] === value : item));
   }
-  const filterByLanguage = filterBy(users, "language", languageName);
+  const filterByLanguage = filterBy(repos, "language", languageName);
   const eventHandler = (event) => setSearchValue(event.target.value);
 
   React.useEffect(() => {
@@ -25,13 +25,13 @@ export default function Main() {
         )
         .then(({ data }) => {
           setIsSearching(false);
-          setUsers(data.items);
+          setRepos(data.items);
         });
     }
-    return setUsers([]);
+    return setRepos([]);
   }, [debouncedSearchValue]);
 
-  console.log(users);
+  console.log(repos);
 
   return (
     <>
@@ -59,15 +59,13 @@ export default function Main() {
         </button>
       </div>
       <div className="grid grid-cols-4 md:grid-cols-8 grid-flow-row gap-4">
-        {filterByLanguage.map((user) => (
-          <UserCard
-            key={user.id}
-            avatar={user.owner.avatar_url}
-            userName={user.name}
-            language={user.language}
-            following={user.owner.following_url}
-            followers={user.owner.followers_url}
-            repos={user.owner.repos_url}
+        {filterByLanguage.map((repos) => (
+          <ReposCard
+            key={repos.id}
+            reposName={repos.name}
+            reposOwner={repos.owner.login}
+            language={repos.language}
+            id={repos.id}
           />
         ))}
       </div>
