@@ -50,25 +50,30 @@ export default function Main() {
         </div>
       )}
       {totalCount && <p>Total repositories = {totalCount}</p>}
-      <p className="text-center mb-2">Select language</p>
-      <div className="flex justify-center mb-5">
-        <Button
-          onClickBtn={() => setLanguageName(null)}
-          buttonName={"Show All"}
-        />
-        <Button
-          onClickBtn={() => setLanguageName("JavaScript")}
-          buttonName={"JavaScript"}
-        />
-        <Button
-          onClickBtn={() => setLanguageName("Java")}
-          buttonName={"Java"}
-        />
-        <Button
-          onClickBtn={() => setLanguageName("Python")}
-          buttonName={"Python"}
-        />
-      </div>
+
+      {repos.length > 0 && (
+        <>
+          <p className="text-center mb-2">Select language</p>
+          <div className="flex justify-center mb-5">
+            <Button
+              onClickBtn={() => setLanguageName(null)}
+              buttonName={"Show All"}
+            />
+            <Button
+              onClickBtn={() => setLanguageName("JavaScript")}
+              buttonName={"JavaScript"}
+            />
+            <Button
+              onClickBtn={() => setLanguageName("Java")}
+              buttonName={"Java"}
+            />
+            <Button
+              onClickBtn={() => setLanguageName("Python")}
+              buttonName={"Python"}
+            />
+          </div>
+        </>
+      )}
       <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 grid-flow-row gap-4 mb-5">
         {filterByLanguage.map((repos) => (
           <ReposCard
