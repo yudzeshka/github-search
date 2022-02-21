@@ -5,13 +5,12 @@ export default function ReposCard({ reposName, language, reposOwner, id }) {
   console.log(reposName);
 
   return (
-    <div>
-      <div></div>
+    <div className="border rounded-md p-2 mx-4">
       <Link
         // onClick={() => console.log(user)}
         to={`/${id}`}
       >
-        <div>Name: {reposName}</div>
+        <div className="hover:bg-violet-100">Name: {reposName}</div>
       </Link>
       <div>Owner name: {reposOwner}</div>
       <div>language: {language}</div>

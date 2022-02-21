@@ -13,22 +13,22 @@ export default function ReposPage() {
     });
   }, [id]);
 
-  // const userId = reposData.owner.id;
   return (
     <div>
       {reposData && (
-        <div>
-          {" "}
-          <div>{`Repository name : ${reposData.name}`}</div>
-          <Link to={`/users/${reposData.owner.id}`}>
-            <div>{`Owner login : ${reposData.owner.login}`}</div>
-          </Link>
-          <div>{`Description : ${reposData.description}`}</div>
-          <div>{`Language : ${reposData.language}`}</div>
-          <div>{`Size : ${reposData.size}`}</div>
-          <div>{`Visibility : ${reposData.visibility}`}</div>
-          <div>{`Created at : ${reposData.created_at}`}</div>
-          <div>{`Updated at : ${reposData.updated_at}`}</div>
+        <div className=" w-screen h-screen flex  justify-center items-center">
+          <div className="border rounded-md flex flex-col items-start p-10">
+            <div>{`Repository name : ${reposData.name}`}</div>
+            <Link to={`/users/${reposData.owner.id}`}>
+              <div className="hover:bg-violet-100">{`Owner login : ${reposData.owner.login}`}</div>
+            </Link>
+            <div>{`Description : ${reposData.description}`}</div>
+            <div>{`Language : ${reposData.language}`}</div>
+            <div>{`Size : ${reposData.size}`}</div>
+            <div>{`Visibility : ${reposData.visibility}`}</div>
+            <div>{`Created at : ${reposData.created_at}`}</div>
+            <div>{`Updated at : ${reposData.updated_at}`}</div>
+          </div>
         </div>
       )}
     </div>

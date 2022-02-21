@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import ReposCard from "../components/ReposCard";
 import useDebounce from "../services/use-debounce";
+import Button from "../components/Button";
 
 export default function Main() {
   const [repos, setRepos] = React.useState([]);
@@ -31,34 +32,36 @@ export default function Main() {
     return setRepos([]);
   }, [debouncedSearchValue]);
 
-  console.log(repos);
-
   return (
     <>
+      <h1 className="text-center text-xl">Github search</h1>
       <input
-        className="border"
-        placeholder="search"
+        className="border w-1/2 h-10 rounded-md mt-5 mb-2 bg-slate-100"
+        placeholder="Enter repository name"
         onChange={eventHandler}
       ></input>
-      {isSearching && <div>searching....</div>}
-      <div className="flex justify-around">
-        <button className="border" onClick={() => setLanguageName(null)}>
-          Show All
-        </button>
-        <button
-          className="border"
-          onClick={() => setLanguageName("JavaScript")}
-        >
-          JavaScript
-        </button>
-        <button className="border" onClick={() => setLanguageName("Java")}>
-          Java
-        </button>
-        <button className="border" onClick={() => setLanguageName("Python")}>
-          Python
-        </button>
+      {isSearching && (
+        <div className="w-screen h-screen text-center text-xl ">
+          searching....
+        </div>
+      )}
+      <p className="text-center mb-2">Select language</p>
+      <div className="flex justify-center mb-5">
+        <Button
+          onFilter={() => setLanguageName(null)}
+          buttonName={"Show All"}
+        />
+        <Button
+          onFilter={() => setLanguageName("JavaScript")}
+          buttonName={"JavaScript"}
+        />
+        <Button onFilter={() => setLanguageName("Java")} buttonName={"Java"} />
+        <Button
+          onFilter={() => setLanguageName("Python")}
+          buttonName={"Python"}
+        />
       </div>
-      <div className="grid grid-cols-4 md:grid-cols-8 grid-flow-row gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 grid-flow-row gap-4">
         {filterByLanguage.map((repos) => (
           <ReposCard
             key={repos.id}
